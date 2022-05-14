@@ -11,13 +11,23 @@ datasource db {
 }
 
 model Users {
-  id       Int      @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
-  birthday DateTime
-  phone    String?
-  cpf      String   @unique
-  email    String   @unique
+  birthday String
+  phone    String? @unique
+  cpf      String  @unique
+  email    String  @unique
   password String
 
+  Sessions Sessions[]
   @@map("users")
+}
+
+model Sessions {
+  id     Int    @id @default(autoincrement())
+  token  String @unique
+  user   Users  @relation(fields: [userId], references: [id])
+  userId Int    @unique
+
+  @@map("sessions")
 }

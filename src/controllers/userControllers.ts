@@ -2,20 +2,25 @@
 /* eslint-disable no-unused-vars */
 import { Request, Response } from 'express';
 import * as userServices from '../services/userServices.js';
-import { createUserData } from '../utils/userUtils.js';
+import { createUserData, userLogin } from '../utils/userUtils.js';
 
 export async function signup(req: Request, res: Response) {
   const user: createUserData = req.body;
 
   await userServices.signup(user);
 
-  res.status(201);
+  res.sendStatus(201);
 }
 
 export async function signin(req: Request, res: Response) {
-  const user: createUserData = req.body;
+  const user: userLogin = req.body;
 
-  await userServices.signin(user);
+  const findUser = await userServices.signin(user);
 
-  res.status(200);
+  const token = await userServices.createSessionAndToken(
+    findUser.id,
+    findUser.email
+  );
+
+  res.status(200).send({ token });
 }

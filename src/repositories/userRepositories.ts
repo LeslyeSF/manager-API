@@ -16,6 +16,32 @@ export async function findUserByEmail(email: string) {
   return user;
 }
 
+export async function findUserById(id: number) {
+  const user = await prisma.users.findFirst({
+    where: {
+      id,
+    },
+  });
+  return user;
+}
+
+export async function findUserByCpf(cpf: string) {
+  const user = await prisma.users.findFirst({
+    where: {
+      cpf,
+    },
+  });
+  return user;
+}
+export async function findUserByPhone(phone: string) {
+  const user = await prisma.users.findFirst({
+    where: {
+      phone,
+    },
+  });
+  return user;
+}
+
 export async function createUser(user: createUserData) {
   await prisma.users.create({
     data: {
