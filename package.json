@@ -5,7 +5,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "NODE_ENV=dev npx ts-node src/server.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx prisma migrate dev && npx ts-node src/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +30,7 @@
   "dependencies": {
     "@prisma/client": "^3.14.0",
     "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "eslint-config-prettier": "^8.5.0",

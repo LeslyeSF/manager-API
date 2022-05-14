@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
-import { Router } from "express";
-import userRouters from "./userRouters.js";
+import { Router } from 'express';
+import userRouters from './userRouters.js';
 
 const routers = Router();
 

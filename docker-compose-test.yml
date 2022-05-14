@@ -1,0 +1,25 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    container_name: database
+    ports:
+      -2345:5432
+    env_file:
+      - .env.test
+  
+  app_node: 
+    build: .
+    container_name: app_node
+    ports:
+      -5000:5000
+    env_file:
+      - .env.test
+    volumes:
+      -.:/usr/src
+      -/usr/src/node_modules
+    entrypoint: dockerize -wait tcp://database:5432 -timeout 20s docker-entrypoint.sh
+    command: "npm run test"
+    depends_on:
+      - database
+
