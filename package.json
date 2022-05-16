@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/src/server.js",
+    "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx prisma migrate dev && npx ts-node src/server.ts"
   },
