@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,23 +12,67 @@ datasource db {
 }
 
 model Users {
-  id       Int       @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
   birthday String
-  phone    String?   @unique
-  cpf      String    @unique
-  email    String    @unique
+  phone    String? @unique
+  cpf      String  @unique
+  email    String  @unique
   password String
-  Sessions Sessions?
 
+  Sessions     Sessions[]
+  Transactions Transactions[]
   @@map("users")
 }
 
 model Sessions {
   id     Int    @id @default(autoincrement())
   token  String @unique
-  userId Int    @unique
   user   Users  @relation(fields: [userId], references: [id])
+  userId Int    @unique
 
   @@map("sessions")
+}
+
+model Categories {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  Transactions Transactions[]
+  @@map("categories")
+}
+
+model CreditCard {
+  id             Int    @id @default(autoincrement())
+  name           String
+  number         String
+  lastPaymentDay String
+  gracePeriod    String
+
+  Transactions Transactions[]
+  @@map("credit-card")
+}
+
+model BankAccounts {
+  id            Int    @id @default(autoincrement())
+  bankName      String
+  accountNumber String
+
+  Transactions Transactions[]
+  @@map("bank-accounts")
+}
+
+model Transactions {
+  id            Int           @id @default(autoincrement())
+  description   String
+  user          Users         @relation(fields: [userId], references: [id])
+  userId        Int           @unique
+  category      Categories    @relation(fields: [categoryId], references: [id])
+  categoryId    Int
+  creditCard    CreditCard?   @relation(fields: [creditCardId], references: [id])
+  creditCardId  Int?
+  bankAccount   BankAccounts? @relation(fields: [bankAccountId], references: [id])
+  bankAccountId Int?
+
+  @@map("transactions")
 }
