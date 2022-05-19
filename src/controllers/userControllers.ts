@@ -24,3 +24,7 @@ export async function signin(req: Request, res: Response) {
 
   res.status(200).send({ token });
 }
+
+export async function logout(req: Request, res: Response) {
+  res.sendStatus(200);
+}
