@@ -9,18 +9,18 @@ datasource db {
 }
 
 model Users {
-  id           Int           @id @default(autoincrement())
-  name         String
-  birthday     String
-  phone        String?       @unique
-  cpf          String        @unique
-  email        String        @unique
-  password     String
-  BankAccounts BankAccounts?
-  CreditCard   CreditCard?
-  Sessions     Sessions?
-  Transactions Transactions?
+  id       Int       @id @default(autoincrement())
+  name     String
+  birthday String
+  phone    String?   @unique
+  cpf      String    @unique
+  email    String    @unique
+  password String
+  Sessions Sessions?
 
+  BankAccounts BankAccounts[]
+  CreditCard   CreditCard[]
+  Transactions Transactions[]
   @@map("users")
 }
 
@@ -42,26 +42,28 @@ model Categories {
 }
 
 model CreditCard {
-  id             Int            @id @default(autoincrement())
+  id             Int    @id @default(autoincrement())
   name           String
-  number         String
-  lastPaymentDay String
-  gracePeriod    String
-  userId         Int            @unique
-  user           Users          @relation(fields: [userId], references: [id])
-  Transactions   Transactions[]
+  number         String @unique
+  lastPaymentDay Int
+  gracePeriod    Int
+  user           Users  @relation(fields: [userId], references: [id])
+  userId         Int
+
+  Transactions Transactions[]
 
   @@map("credit-card")
 }
 
 model BankAccounts {
-  id            Int            @id @default(autoincrement())
+  id            Int    @id @default(autoincrement())
   bankName      String
-  accountNumber String
+  accountNumber String @unique
   amount        Int
-  userId        Int            @unique
-  user          Users          @relation(fields: [userId], references: [id])
-  Transactions  Transactions[]
+  user          Users  @relation(fields: [userId], references: [id])
+  userId        Int
+
+  Transactions Transactions[]
 
   @@map("bank-accounts")
 }
@@ -71,14 +73,15 @@ model Transactions {
   description   String
   amount        Int
   type          String
-  userId        Int           @unique
   categoryId    Int
   creditCardId  Int?
   bankAccountId Int?
+  user          Users         @relation(fields: [userId], references: [id])
+  userId        Int
   bankAccount   BankAccounts? @relation(fields: [bankAccountId], references: [id])
   category      Categories    @relation(fields: [categoryId], references: [id])
   creditCard    CreditCard?   @relation(fields: [creditCardId], references: [id])
-  user          Users         @relation(fields: [userId], references: [id])
+
 
   @@map("transactions")
 }

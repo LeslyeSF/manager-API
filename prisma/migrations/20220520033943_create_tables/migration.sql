@@ -33,8 +33,8 @@ CREATE TABLE "credit-card" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "number" TEXT NOT NULL,
-    "lastPaymentDay" TEXT NOT NULL,
-    "gracePeriod" TEXT NOT NULL,
+    "lastPaymentDay" INTEGER NOT NULL,
+    "gracePeriod" INTEGER NOT NULL,
     "userId" INTEGER NOT NULL,
 
     CONSTRAINT "credit-card_pkey" PRIMARY KEY ("id")
@@ -57,10 +57,10 @@ CREATE TABLE "transactions" (
     "description" TEXT NOT NULL,
     "amount" INTEGER NOT NULL,
     "type" TEXT NOT NULL,
-    "userId" INTEGER NOT NULL,
     "categoryId" INTEGER NOT NULL,
     "creditCardId" INTEGER,
     "bankAccountId" INTEGER,
+    "userId" INTEGER NOT NULL,
 
     CONSTRAINT "transactions_pkey" PRIMARY KEY ("id")
 );
@@ -84,13 +84,10 @@ CREATE UNIQUE INDEX "sessions_userId_key" ON "sessions"("userId");
 CREATE UNIQUE INDEX "categories_name_key" ON "categories"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "credit-card_userId_key" ON "credit-card"("userId");
+CREATE UNIQUE INDEX "credit-card_number_key" ON "credit-card"("number");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "bank-accounts_userId_key" ON "bank-accounts"("userId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "transactions_userId_key" ON "transactions"("userId");
+CREATE UNIQUE INDEX "bank-accounts_accountNumber_key" ON "bank-accounts"("accountNumber");
 
 -- AddForeignKey
 ALTER TABLE "sessions" ADD CONSTRAINT "sessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

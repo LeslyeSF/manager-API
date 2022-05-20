@@ -26,5 +26,9 @@ export async function signin(req: Request, res: Response) {
 }
 
 export async function logout(req: Request, res: Response) {
+  const { user } = res.locals;
+
+  await userServices.deleteSession(user.id);
+
   res.sendStatus(200);
 }

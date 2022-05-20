@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-unresolved */
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { createUserData, userLogin } from '../utils/userUtils.js';
 import * as userRepositories from '../repositories/userRepositories.js';
 import * as sessionRepositories from '../repositories/sessionRepositories.js';
@@ -45,7 +46,7 @@ async function findSession(userId: number) {
 }
 
 async function createToken(email: string) {
-  const token = 'jwt.sign(email, process.env.JWT)';
+  const token = jwt.sign(email, process.env.JWT);
 
   return token;
 }
@@ -80,4 +81,10 @@ export async function createSessionAndToken(userId: number, email: string) {
   });
 
   return token;
+}
+
+export async function deleteSession(userId: number) {
+  const session = await findSession(userId);
+
+  await sessionRepositories.deleteSession(session.id);
 }

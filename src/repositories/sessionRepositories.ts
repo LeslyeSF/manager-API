@@ -18,3 +18,11 @@ export async function createSession(session: any) {
     },
   });
 }
+
+export async function deleteSession(id: number) {
+  await prisma.sessions.delete({
+    where: {
+      id,
+    },
+  });
+}
