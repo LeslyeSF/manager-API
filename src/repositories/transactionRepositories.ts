@@ -18,7 +18,7 @@ export async function insertTransaction(
   await prisma.transactions.create({
     data: {
       description: transaction.description,
-      amount: transaction.amount,
+      amount: Number(transaction.amount),
       categoryId: transaction.categoryId,
       type: transaction.type,
       bankAccountId: transaction.bankAccountId || null,
@@ -32,6 +32,11 @@ export async function getAllTransactionsByUserId(userId: number) {
   const list = await prisma.transactions.findMany({
     where: {
       userId,
+    },
+    include: {
+      category: true,
+      creditCard: true,
+      bankAccount: true,
     },
   });
   return list;

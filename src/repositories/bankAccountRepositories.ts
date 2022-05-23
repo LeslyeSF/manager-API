@@ -36,7 +36,7 @@ export async function insertBankAccount(
     data: {
       bankName: bankAccount.bankName,
       accountNumber: bankAccount.accountNumber,
-      amount: bankAccount.amount,
+      amount: Number(bankAccount.amount),
       userId,
     },
   });

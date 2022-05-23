@@ -22,7 +22,7 @@ export async function signin(req: Request, res: Response) {
     findUser.email
   );
 
-  res.status(200).send({ token });
+  res.status(200).send({ token, userId: findUser.id, userName: findUser.name });
 }
 
 export async function logout(req: Request, res: Response) {

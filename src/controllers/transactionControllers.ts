@@ -27,3 +27,11 @@ export async function deleteTransactions(req: Request, res: Response) {
 
   res.sendStatus(200);
 }
+
+export async function getDashboard(req: Request, res: Response) {
+  const { user } = res.locals;
+
+  const dashboard = await transactionServices.dashboard(user.id);
+
+  res.status(200).send(dashboard);
+}

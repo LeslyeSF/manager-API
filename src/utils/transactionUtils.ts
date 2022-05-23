@@ -8,3 +8,9 @@ export interface transaction {
 }
 
 export type createTransaction = Partial<transaction>;
+
+export interface transactionDashboard {
+  type: string;
+  amount: number;
+  category: string;
+}

@@ -10,8 +10,8 @@ export async function insertCreditCard(
     data: {
       name: creditCard.name,
       number: creditCard.number,
-      lastPaymentDay: creditCard.lastPaymentDay,
-      gracePeriod: creditCard.gracePeriod,
+      lastPaymentDay: Number(creditCard.lastPaymentDay),
+      gracePeriod: Number(creditCard.gracePeriod),
       userId,
     },
   });

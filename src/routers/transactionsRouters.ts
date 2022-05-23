@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import {
   deleteTransactions,
+  getDashboard,
   getTransactions,
   insertTransaction,
 } from '../controllers/transactionControllers.js';
@@ -22,9 +23,14 @@ transactionsRouters.get(
   getTransactions
 );
 transactionsRouters.post(
-  'transactions/delete',
+  '/transactions/:id/delete',
   validateTokenMiddleware,
   deleteTransactions
+);
+transactionsRouters.get(
+  '/transactions/dashboard',
+  validateTokenMiddleware,
+  getDashboard
 );
 
 export default transactionsRouters;
