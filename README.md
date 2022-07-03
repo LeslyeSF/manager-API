@@ -1,12 +1,12 @@
 # Manager <img  src="https://cdn-icons-png.flaticon.com/512/4149/4149727.png"  height="50px">
 
 Web application for managing own finances.  <a href="https://manager-inky.vercel.app">Click to access</a>.Functionalities:
--Login and user registration;
--Register transactions
--Register bank account
--Register Credit Card
--View Data
--Dashboard of your finances
+<li>-Login and user registration;</li>
+<li>-Register transactions</li>
+<li>-Register bank account</li>
+<li>-Register Credit Card</li>
+<li>-View Data</li>
+<li>-Dashboard of your finances</li>
 <img src="./assets/managerMainPage.png"/>
 
 
