@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/server.js",
+    "manager": "npx ts-node ./src/server.ts",
     "build": "tsc",
+    "migration": "npx prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx prisma migrate dev && npx ts-node src/server.ts"
   },
